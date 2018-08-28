@@ -3,10 +3,8 @@ swagger: "2.0"
 x-collection-name: Flat
 x-complete: 0
 info:
-  title: Flat Get a score's metadata
-  description: |-
-    Get the details of a score identified by the `score` parameter in the URL.
-    The currently authenticated user must have at least a read access to the document to use this API call.
+  title: Flat List liked scores
+  description: ""
   termsOfService: https://flat.io/legal
   contact:
     name: Flat
@@ -59,6 +57,47 @@ paths:
       tags:
       - Scores
       - Metadata
+    put:
+      summary: Edit a score's metadata
+      description: |-
+        This API method allows you to change the metadata of a score document (e.g. its `title` or `privacy`), all the properties are optional.
+
+        To edit the file itself, create a new revision using the appropriate method (`POST /v2/scores/{score}/revisions/{revision}`).
+      operationId: editScore
+      x-api-path-slug: scoresscore-put
+      parameters:
+      - in: body
+        name: body
+        schema:
+          $ref: '#/definitions/holder'
+      - in: query
+        name: No Name
+      responses:
+        200:
+          description: OK
+      tags:
+      - Edit
+      - Scores
+      - Metadata
+  /users/{user}/likes:
+    get:
+      summary: List liked scores
+      description: ""
+      operationId: gerUserLikes
+      x-api-path-slug: usersuserlikes-get
+      parameters:
+      - in: query
+        name: ids
+        description: Return only the identifiers of the scores
+      - in: query
+        name: No Name
+      responses:
+        200:
+          description: OK
+      tags:
+      - List
+      - Liked
+      - Scores
 x-streamrank:
   polling_total_time_average: 0
   polling_size_download_average: 0
